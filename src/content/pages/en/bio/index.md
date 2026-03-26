@@ -1,7 +1,7 @@
 ---
 title: Bio
 navTitle: Bio
-description: Full academic biography based on the latest CV (updated November 25, 2025).
+description: Full academic biography
 excerpt: Education, appointments, grants, service, and teaching profile.
 showInNav: true
 order: 2
