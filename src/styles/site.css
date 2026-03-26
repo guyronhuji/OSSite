@@ -859,6 +859,19 @@ html[dir='rtl'] .site-banner {
   text-align: right;
 }
 
+html[dir='rtl'] .banner-top {
+  justify-content: flex-end;
+}
+
+html[dir='rtl'] .banner-brand,
+html[dir='rtl'] .banner-nav {
+  text-align: right;
+}
+
+html[dir='rtl'] .banner-nav ul {
+  justify-items: end;
+}
+
 html[dir='rtl'] .quick-links,
 html[dir='rtl'] .interest-tags {
   direction: rtl;
@@ -867,6 +880,10 @@ html[dir='rtl'] .interest-tags {
 html[dir='rtl'] .banner-nav .nav-link,
 html[dir='rtl'] .side-panel a {
   justify-content: flex-end;
+}
+
+html[dir='rtl'] .banner-nav .nav-link {
+  text-align: right;
 }
 
 html[dir='rtl'] .side-panel,
@@ -892,6 +909,12 @@ html[dir='rtl'] .site-footer {
 }
 
 html[dir='rtl'] .language-switcher {
+  direction: rtl;
+  justify-content: flex-end;
+  text-align: right;
+}
+
+html[dir='rtl'] .language-list {
   direction: ltr;
 }
 
@@ -911,6 +934,11 @@ html[dir='rtl'] .publication-meta {
     width: 100%;
     justify-content: center;
     text-align: center;
+  }
+
+  html[dir='rtl'] .nav-link {
+    justify-content: flex-end;
+    text-align: right;
   }
 }
 
