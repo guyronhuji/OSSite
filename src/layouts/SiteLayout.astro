@@ -1,0 +1,139 @@
+---
+import '../styles/site.css';
+import LanguageSwitcher from '../components/LanguageSwitcher.astro';
+import type { Locale } from '../lib/i18n';
+
+interface NavItem {
+  href: string;
+  label: string;
+  active?: boolean;
+}
+
+interface LanguageLink {
+  locale: Locale;
+  href: string;
+  active: boolean;
+}
+
+interface ProfileData {
+  name: string;
+  title: string;
+  affiliation: string;
+  email: string;
+  phone?: string;
+  office?: string;
+  orcid?: string;
+  cvUrl?: string;
+  publicationsPdfUrl?: string;
+}
+
+interface UiText {
+  skipToContent: string;
+  navLabel: string;
+  languageLabel: string;
+  contact: string;
+  office: string;
+  email: string;
+  phone: string;
+  sourceDateLabel: string;
+}
+
+interface Props {
+  locale: Locale;
+  dir: 'ltr' | 'rtl';
+  title: string;
+  description?: string;
+  navItems: NavItem[];
+  languageLinks: LanguageLink[];
+  profile: ProfileData;
+  ui: UiText;
+  updatedAt: string;
+}
+
+const { locale, dir, title, description, navItems, languageLinks, profile, ui, updatedAt } = Astro.props;
+---
+
+<!doctype html>
+<html lang={locale} dir={dir}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description ?? profile.title} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,700&family=Noto+Sans+Arabic:wght@400;500;600;700&family=Noto+Sans+Hebrew:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">{ui.skipToContent}</a>
+
+    <div class="site-shell">
+      <header class="site-banner">
+        <div class="banner-top">
+          <LanguageSwitcher label={ui.languageLabel} links={languageLinks} />
+        </div>
+
+        <div class="banner-brand">
+          <a href={`/${locale}`} class="site-name">
+            {profile.name}
+          </a>
+          <p class="site-title">{profile.title}</p>
+          <p class="site-affiliation">{profile.affiliation}</p>
+        </div>
+
+        <nav class="banner-nav" aria-label={ui.navLabel}>
+          <ul role="list">
+            {
+              navItems.map((item) => (
+                <li>
+                  <a href={item.href} class:list={['nav-link', { active: item.active }]} aria-current={item.active ? 'page' : undefined}>
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </header>
+
+      <div class="main-column">
+        <main id="main-content" class="main-content">
+          <slot />
+        </main>
+
+        <footer class="site-footer">
+          <div class="footer-grid">
+            <div>
+              <p class="footer-title">{profile.name}</p>
+              <p>{profile.affiliation}</p>
+            </div>
+            <div>
+              <p class="footer-title">{ui.contact}</p>
+              {profile.office ? <p><strong>{ui.office}:</strong> {profile.office}</p> : null}
+              <p>
+                <strong>{ui.email}:</strong>{' '}
+                <a href={`mailto:${profile.email}`}>{profile.email}</a>
+              </p>
+              {profile.phone ? (
+                <p>
+                  <strong>{ui.phone}:</strong> <a href={`tel:${profile.phone}`}>{profile.phone}</a>
+                </p>
+              ) : null}
+            </div>
+            <div>
+              <p>
+                <strong>{ui.sourceDateLabel}:</strong> {updatedAt}
+              </p>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+---
+import { localeCodes, localeNames, type Locale } from '../lib/i18n';
+
+interface LanguageLink {
+  locale: Locale;
+  href: string;
+  active: boolean;
+}
+
+interface Props {
+  label: string;
+  links: LanguageLink[];
+}
+
+const { label, links } = Astro.props;
+---
+
+<div class="language-switcher" aria-label={label}>
+  <span class="language-label">{label}</span>
+  <ul class="language-list" role="list">
+    {
+      links.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class:list={['language-link', { active: link.active }]}
+            lang={link.locale}
+            hreflang={link.locale}
+            aria-current={link.active ? 'page' : undefined}
+            title={localeNames[link.locale]}
+          >
+            {localeCodes[link.locale]}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>

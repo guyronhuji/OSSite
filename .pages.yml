@@ -1,0 +1,252 @@
+media:
+  input: public/uploads
+  output: /uploads
+
+content:
+  - name: pages_en
+    label: Pages (English)
+    type: collection
+    path: src/content/pages/en
+    filename: '{primary}.md'
+    subfolders: true
+    view:
+      layout: tree
+      primary: title
+      fields: [title, navTitle, showInNav, order]
+      node:
+        filename: index.md
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: navTitle
+        label: Navigation Title
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: excerpt
+        label: Short Excerpt
+        type: text
+      - name: showInNav
+        label: Show In Main Navigation
+        type: boolean
+        default: false
+      - name: order
+        label: Sort Order
+        type: number
+        default: 999
+      - name: heroImage
+        label: Hero Image
+        type: image
+      - name: body
+        label: Page Content
+        type: rich-text
+
+  - name: pages_he
+    label: Pages (Hebrew)
+    type: collection
+    path: src/content/pages/he
+    filename: '{primary}.md'
+    subfolders: true
+    view:
+      layout: tree
+      primary: title
+      fields: [title, navTitle, showInNav, order]
+      node:
+        filename: index.md
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: navTitle
+        label: Navigation Title
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: excerpt
+        label: Short Excerpt
+        type: text
+      - name: showInNav
+        label: Show In Main Navigation
+        type: boolean
+        default: false
+      - name: order
+        label: Sort Order
+        type: number
+        default: 999
+      - name: heroImage
+        label: Hero Image
+        type: image
+      - name: body
+        label: Page Content
+        type: rich-text
+
+  - name: pages_de
+    label: Pages (German)
+    type: collection
+    path: src/content/pages/de
+    filename: '{primary}.md'
+    subfolders: true
+    view:
+      layout: tree
+      primary: title
+      fields: [title, navTitle, showInNav, order]
+      node:
+        filename: index.md
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: navTitle
+        label: Navigation Title
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: excerpt
+        label: Short Excerpt
+        type: text
+      - name: showInNav
+        label: Show In Main Navigation
+        type: boolean
+        default: false
+      - name: order
+        label: Sort Order
+        type: number
+        default: 999
+      - name: heroImage
+        label: Hero Image
+        type: image
+      - name: body
+        label: Page Content
+        type: rich-text
+
+  - name: pages_ar
+    label: Pages (Arabic)
+    type: collection
+    path: src/content/pages/ar
+    filename: '{primary}.md'
+    subfolders: true
+    view:
+      layout: tree
+      primary: title
+      fields: [title, navTitle, showInNav, order]
+      node:
+        filename: index.md
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: navTitle
+        label: Navigation Title
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: excerpt
+        label: Short Excerpt
+        type: text
+      - name: showInNav
+        label: Show In Main Navigation
+        type: boolean
+        default: false
+      - name: order
+        label: Sort Order
+        type: number
+        default: 999
+      - name: heroImage
+        label: Hero Image
+        type: image
+      - name: body
+        label: Page Content
+        type: rich-text
+
+  - name: profile
+    label: Profile Data
+    type: file
+    path: src/content/profile/main.yaml
+    format: yaml
+    fields:
+      - name: name
+        type: string
+        required: true
+      - name: title
+        type: string
+        required: true
+      - name: affiliation
+        type: string
+        required: true
+      - name: email
+        type: string
+        required: true
+      - name: phone
+        type: string
+      - name: office
+        type: string
+      - name: orcid
+        type: string
+      - name: cvUrl
+        type: string
+      - name: publicationsPdfUrl
+        type: string
+      - name: heroTags
+        type: string
+        list: true
+      - name: interests
+        type: string
+        list: true
+
+  - name: publications
+    label: Publications Data
+    type: file
+    path: src/content/publications/list.yaml
+    format: yaml
+    fields:
+      - name: updated
+        type: string
+        required: true
+      - name: items
+        label: Publication Items
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{fields.year} - {fields.title}'
+        fields:
+          - name: id
+            type: string
+            required: true
+          - name: year
+            type: number
+            required: true
+          - name: status
+            type: select
+            options:
+              values: [published, forthcoming]
+            required: true
+          - name: type
+            type: select
+            options:
+              values: [book, edited_volume, chapter, article, other]
+            required: true
+          - name: title
+            type: text
+            required: true
+          - name: authors
+            type: text
+            required: true
+          - name: venue
+            type: text
+            required: true
+          - name: details
+            type: text
+          - name: doi
+            type: string
+          - name: url
+            type: string

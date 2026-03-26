@@ -1,0 +1,269 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { compareByOrderThenTitle, entryHref, isDirectChild, parsePageId } from '../../lib/content';
+import { isRtl, localeOrder, pageHref, uiText } from '../../lib/i18n';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+
+  return pages.flatMap((entry) => {
+    const parsed = parsePageId(entry.id);
+    if (!parsed) {
+      return [];
+    }
+
+    return [
+      {
+        params: {
+          locale: parsed.locale,
+          slug: parsed.slugParts.length ? parsed.slugParts.join('/') : undefined,
+        },
+        props: { entry },
+      },
+    ];
+  });
+}
+
+const { entry } = Astro.props;
+const parsedCurrent = parsePageId(entry.id);
+
+if (!parsedCurrent) {
+  throw new Error(`Invalid page id: ${entry.id}`);
+}
+
+const locale = parsedCurrent.locale;
+const slugParts = parsedCurrent.slugParts;
+const dir = isRtl(locale) ? 'rtl' : 'ltr';
+const ui = uiText[locale];
+
+const allPages = await getCollection('pages');
+const localePages = allPages.filter((page) => parsePageId(page.id)?.locale === locale).sort(compareByOrderThenTitle);
+
+const navItems = localePages
+  .filter((page) => {
+    const parsed = parsePageId(page.id);
+    return page.data.showInNav && Boolean(parsed) && parsed.slugParts.length <= 1;
+  })
+  .map((page) => {
+    const parsed = parsePageId(page.id);
+    if (!parsed) {
+      return null;
+    }
+
+    const href = entryHref(page);
+    if (!href) {
+      return null;
+    }
+
+    return {
+      href,
+      label: page.data.navTitle ?? page.data.title,
+      active: parsed.slugParts.join('/') === slugParts.join('/'),
+    };
+  })
+  .filter((item): item is { href: string; label: string; active: boolean } => item !== null);
+
+const childPages = localePages
+  .filter((page) => {
+    const parsed = parsePageId(page.id);
+    return Boolean(parsed) && isDirectChild(slugParts, parsed.slugParts);
+  })
+  .map((page) => {
+    const href = entryHref(page);
+    if (!href) {
+      return null;
+    }
+
+    return {
+      href,
+      title: page.data.title,
+      description: page.data.excerpt,
+    };
+  })
+  .filter((item): item is { href: string; title: string; description?: string } => item !== null);
+
+const languageLinks = localeOrder.map((targetLocale) => {
+  const exactMatch = allPages.find((page) => {
+    const parsed = parsePageId(page.id);
+    return (
+      Boolean(parsed) &&
+      parsed.locale === targetLocale &&
+      parsed.slugParts.join('/') === slugParts.join('/')
+    );
+  });
+
+  const homeMatch = allPages.find((page) => {
+    const parsed = parsePageId(page.id);
+    return Boolean(parsed) && parsed.locale === targetLocale && parsed.slugParts.length === 0;
+  });
+
+  const href = exactMatch ? entryHref(exactMatch) : homeMatch ? entryHref(homeMatch) : pageHref(targetLocale, []);
+
+  return {
+    locale: targetLocale,
+    href: href ?? pageHref(targetLocale, []),
+    active: targetLocale === locale,
+  };
+});
+
+const { Content } = await render(entry);
+
+const profileEntry = await getEntry('profile', 'main');
+if (!profileEntry) {
+  throw new Error('Missing profile content: src/content/profile/main.yaml');
+}
+
+const publicationsEntry = await getEntry('publications', 'list');
+const publications = (publicationsEntry?.data.items ?? []).slice().sort((a, b) => b.year - a.year);
+
+const profile = profileEntry.data;
+
+const pageTitle = `${entry.data.title} | ${profile.name}`;
+const pageDescription = entry.data.description ?? entry.data.excerpt ?? profile.title;
+
+const isHome = slugParts.length === 0;
+const isPublicationsPage = slugParts.length === 1 && slugParts[0] === 'publications';
+const isResearchIndexPage = slugParts.length === 1 && slugParts[0] === 'research';
+const sectionCards = navItems.filter((item) => item.href !== pageHref(locale, []));
+const showPageAside = !isResearchIndexPage && (childPages.length > 0 || Boolean(profile.cvUrl) || Boolean(profile.publicationsPdfUrl));
+---
+
+<SiteLayout
+  locale={locale}
+  dir={dir}
+  title={pageTitle}
+  description={pageDescription}
+  navItems={navItems}
+  languageLinks={languageLinks}
+  profile={profile}
+  ui={ui}
+  updatedAt={publicationsEntry?.data.updated ?? '2025-12-11'}
+>
+  {
+    isHome ? (
+      <>
+        <section class="hero">
+          <div>
+            <h1>{entry.data.title}</h1>
+            {entry.data.description ? <p>{entry.data.description}</p> : null}
+            <div class="quick-links" role="list">
+              {
+                sectionCards.map((item) => (
+                  <a class="quick-link" href={item.href}>
+                    {item.label}
+                  </a>
+                ))
+              }
+            </div>
+            <div class="interest-tags" role="list" aria-label={ui.researchInterests}>
+              {
+                profile.interests.map((interest) => (
+                  <span class="interest-tag">{interest}</span>
+                ))
+              }
+            </div>
+          </div>
+          <div class="hero-media">
+            <img class="hero-portrait" src="/images/oded-portrait.jpg" alt={ui.profileImageAlt} width="180" height="140" loading="eager" />
+            <img class="hero-book" src="/images/race-nation-history-cover.png" alt={ui.bookCoverAlt} width="243" height="361" loading="lazy" />
+          </div>
+        </section>
+
+        <div class:list={['content-layout', { 'single-column': !showPageAside }]}>
+          <article class="prose">
+            <Content />
+            <p class="source-note">{ui.sourceNote}</p>
+          </article>
+
+          <aside class="side-panel">
+            <h2>{ui.contact}</h2>
+            {profile.office ? <p><strong>{ui.office}:</strong> {profile.office}</p> : null}
+            <p>
+              <strong>{ui.email}:</strong> <a href={`mailto:${profile.email}`}>{profile.email}</a>
+            </p>
+            {profile.phone ? (
+              <p>
+                <strong>{ui.phone}:</strong> <a href={`tel:${profile.phone}`}>{profile.phone}</a>
+              </p>
+            ) : null}
+            <div class="quick-links">
+              {profile.cvUrl ? <a class="quick-link" href={profile.cvUrl}>{ui.downloadCv}</a> : null}
+              {profile.publicationsPdfUrl ? (
+                <a class="quick-link" href={profile.publicationsPdfUrl}>{ui.downloadPublicationsPdf}</a>
+              ) : null}
+            </div>
+          </aside>
+        </div>
+      </>
+    ) : (
+      <>
+        <header>
+          <h1 class="page-title">{entry.data.title}</h1>
+          {entry.data.description ? <p class="page-description">{entry.data.description}</p> : null}
+        </header>
+
+        <div class="content-layout">
+          <article class="prose">
+            <Content />
+
+            {
+              isPublicationsPage ? (
+                <ul class="publication-list" role="list">
+                  {
+                    publications.map((item) => (
+                      <li class="publication-item">
+                        <div class="publication-meta">
+                          <span>{item.year}</span>
+                          <span>·</span>
+                          <span>{item.status === 'forthcoming' ? 'Forthcoming' : item.type.replace('_', ' ')}</span>
+                        </div>
+                        <p class="publication-title">{item.title}</p>
+                        <p class="publication-details">
+                          {item.authors}. {item.venue}
+                          {item.details ? ` ${item.details}` : ''}
+                          {item.doi ? ` DOI: ${item.doi}` : ''}
+                        </p>
+                        {item.url ? <p class="publication-details"><a href={item.url} target="_blank" rel="noreferrer">Open link</a></p> : null}
+                      </li>
+                    ))
+                  }
+                </ul>
+              ) : null
+            }
+          </article>
+
+          {
+            showPageAside ? (
+              <aside class="side-panel">
+                {childPages.length > 0 ? (
+                  <>
+                    <h2>{ui.subpages}</h2>
+                    <ul role="list">
+                      {
+                        childPages.map((child) => (
+                          <li>
+                            <a href={child.href}>
+                              {child.title}
+                            </a>
+                          </li>
+                        ))
+                      }
+                    </ul>
+                  </>
+                ) : null}
+
+                <div class="quick-links">
+                  {profile.cvUrl ? <a class="quick-link" href={profile.cvUrl}>{ui.downloadCv}</a> : null}
+                  {profile.publicationsPdfUrl ? (
+                    <a class="quick-link" href={profile.publicationsPdfUrl}>{ui.downloadPublicationsPdf}</a>
+                  ) : null}
+                </div>
+              </aside>
+            ) : null
+          }
+        </div>
+      </>
+    )
+  }
+</SiteLayout>
