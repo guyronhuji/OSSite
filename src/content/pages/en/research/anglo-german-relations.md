@@ -7,7 +7,7 @@ excerpt: This theme traces how ideas moved between British and German-speaking
   explains why their categories still influence modern historical narratives.
 showInNav: false
 order: 1
-themeIcon: Q
+themeIcon: ✎
 ---
 This strand of my work follows the circulation of ideas between Britain and German-speaking Central Europe, especially among historians and political thinkers active in the Victorian period.
 
