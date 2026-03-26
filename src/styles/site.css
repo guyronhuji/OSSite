@@ -876,6 +876,14 @@ html[dir='rtl'] .side-panel a {
   justify-content: flex-end;
 }
 
+html[dir='rtl'] .side-panel,
+html[dir='rtl'] .side-panel h2,
+html[dir='rtl'] .side-panel p,
+html[dir='rtl'] .side-panel li,
+html[dir='rtl'] .identity-panel {
+  text-align: right;
+}
+
 html[dir='rtl'] .bio-timeline li {
   padding-inline: 0.9rem 0;
 }
