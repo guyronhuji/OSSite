@@ -70,7 +70,6 @@ export const uiText: Record<
     phone: string;
     subpages: string;
     sourceNote: string;
-    sourceDateLabel: string;
     profileImageAlt: string;
     bookCoverAlt: string;
     researchThemes: string;
@@ -98,7 +97,6 @@ export const uiText: Record<
     phone: 'Phone',
     subpages: 'Related Pages',
     sourceNote: 'Core biography and publication records migrated from the current HUJI site.',
-    sourceDateLabel: 'Data refreshed',
     profileImageAlt: 'Portrait of Dr. Oded Steinberg',
     bookCoverAlt: 'Cover of Race, Nation, History',
     researchThemes: 'Research Themes',
@@ -125,7 +123,6 @@ export const uiText: Record<
     phone: 'טלפון',
     subpages: 'עמודים קשורים',
     sourceNote: 'הביוגרפיה והפרסומים הועברו מאתר האוניברסיטה העברית הנוכחי.',
-    sourceDateLabel: 'עודכן בתאריך',
     profileImageAlt: 'דיוקן של ד״ר עודד שטיינברג',
     bookCoverAlt: 'עטיפת הספר Race, Nation, History',
     researchThemes: 'נושאי מחקר',
@@ -152,7 +149,6 @@ export const uiText: Record<
     phone: 'Telefon',
     subpages: 'Zugehorige Seiten',
     sourceNote: 'Biografische und bibliografische Daten wurden von der aktuellen HUJI-Seite ubernommen.',
-    sourceDateLabel: 'Daten aktualisiert',
     profileImageAlt: 'Portrat von Dr. Oded Steinberg',
     bookCoverAlt: 'Buchcover von Race, Nation, History',
     researchThemes: 'Forschungsthemen',
@@ -179,7 +175,6 @@ export const uiText: Record<
     phone: 'الهاتف',
     subpages: 'صفحات ذات صلة',
     sourceNote: 'تم نقل السيرة الذاتية وسجل المنشورات من موقع الجامعة العبرية الحالي.',
-    sourceDateLabel: 'تاريخ تحديث البيانات',
     profileImageAlt: 'صورة شخصية للدكتور عوديد شتاينبرغ',
     bookCoverAlt: 'غلاف كتاب Race, Nation, History',
     researchThemes: 'محاور البحث',

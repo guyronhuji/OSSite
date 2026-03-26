@@ -35,7 +35,6 @@ interface UiText {
   office: string;
   email: string;
   phone: string;
-  sourceDateLabel: string;
 }
 
 interface Props {
@@ -47,10 +46,9 @@ interface Props {
   languageLinks: LanguageLink[];
   profile: ProfileData;
   ui: UiText;
-  updatedAt: string;
 }
 
-const { locale, dir, title, description, navItems, languageLinks, profile, ui, updatedAt } = Astro.props;
+const { locale, dir, title, description, navItems, languageLinks, profile, ui } = Astro.props;
 ---
 
 <!doctype html>
@@ -121,7 +119,6 @@ const { locale, dir, title, description, navItems, languageLinks, profile, ui, u
                 }
               </ul>
             </nav>
-            <p class="footer-updated"><strong>{ui.sourceDateLabel}:</strong> {updatedAt}</p>
           </div>
         </footer>
       </div>
