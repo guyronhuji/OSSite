@@ -1,3 +1,5 @@
 ---
-return Astro.redirect('/en');
+import { pageHref } from '../lib/i18n';
+
+return Astro.redirect(pageHref('en', []));
 ---

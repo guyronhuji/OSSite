@@ -26,8 +26,31 @@ export function isRtl(locale: Locale): boolean {
   return rtlLocales.has(locale);
 }
 
+function normalizedBaseUrl(): string {
+  const base = import.meta.env.BASE_URL || '/';
+  if (base === '/') {
+    return '/';
+  }
+
+  return base.endsWith('/') ? base : `${base}/`;
+}
+
+export function withBase(path: string): string {
+  if (
+    !path ||
+    path.startsWith('#') ||
+    path.startsWith('//') ||
+    /^[a-zA-Z][a-zA-Z\d+.-]*:/.test(path)
+  ) {
+    return path;
+  }
+
+  const normalizedPath = path.startsWith('/') ? path.slice(1) : path;
+  return `${normalizedBaseUrl()}${normalizedPath}`;
+}
+
 export function pageHref(locale: Locale, slugParts: string[]): string {
-  return `/${locale}${slugParts.length ? `/${slugParts.join('/')}` : ''}`;
+  return withBase(`/${locale}${slugParts.length ? `/${slugParts.join('/')}` : ''}`);
 }
 
 export const uiText: Record<

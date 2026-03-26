@@ -2,7 +2,7 @@
 import { getCollection, getEntry, render } from 'astro:content';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import { compareByOrderThenTitle, entryHref, isDirectChild, parsePageId } from '../../lib/content';
-import { isRtl, localeOrder, pageHref, uiText } from '../../lib/i18n';
+import { isRtl, localeOrder, pageHref, uiText, withBase } from '../../lib/i18n';
 
 export async function getStaticPaths() {
   const pages = await getCollection('pages');
@@ -118,6 +118,12 @@ const publicationsEntry = await getEntry('publications', 'list');
 const publications = (publicationsEntry?.data.items ?? []).slice().sort((a, b) => b.year - a.year);
 
 const profile = profileEntry.data;
+const profileImageSrc = withBase('/images/oded-portrait.jpg');
+const bookCoverSrc = withBase('/images/race-nation-history-cover.png');
+
+const normalizeOptionalUrl = (url?: string): string | undefined => (url ? withBase(url) : undefined);
+const cvUrl = normalizeOptionalUrl(profile.cvUrl);
+const publicationsPdfUrl = normalizeOptionalUrl(profile.publicationsPdfUrl);
 
 const pageTitle = `${entry.data.title} | ${profile.name}`;
 const pageDescription = entry.data.description ?? entry.data.excerpt ?? profile.title;
@@ -128,7 +134,7 @@ const isResearchIndexPage = slugParts.length === 1 && slugParts[0] === 'research
 const isBioPage = slugParts.length === 1 && slugParts[0] === 'bio';
 const isContactPage = slugParts.length === 1 && slugParts[0] === 'contact';
 const sectionCards = navItems.filter((item) => item.href !== pageHref(locale, []));
-const showPageAside = !isResearchIndexPage && (childPages.length > 0 || Boolean(profile.cvUrl) || Boolean(profile.publicationsPdfUrl));
+const showPageAside = !isResearchIndexPage && (childPages.length > 0 || Boolean(cvUrl) || Boolean(publicationsPdfUrl));
 
 const researchThemeIcons = ['◼', '◷', '✦'];
 const researchThemes = childPages.map((child, index) => ({
@@ -207,8 +213,8 @@ const academicProfiles = [
             </div>
           </div>
           <div class="hero-media">
-            <img class="hero-portrait" src="/images/oded-portrait.jpg" alt={ui.profileImageAlt} width="180" height="140" loading="eager" />
-            <img class="hero-book" src="/images/race-nation-history-cover.png" alt={ui.bookCoverAlt} width="243" height="361" loading="lazy" />
+            <img class="hero-portrait" src={profileImageSrc} alt={ui.profileImageAlt} width="180" height="140" loading="eager" />
+            <img class="hero-book" src={bookCoverSrc} alt={ui.bookCoverAlt} width="243" height="361" loading="lazy" />
           </div>
         </section>
 
@@ -220,7 +226,7 @@ const academicProfiles = [
 
           <aside class="side-panel">
             <div class="identity-panel">
-              <img class="side-photo" src="/images/oded-portrait.jpg" alt={ui.profileImageAlt} width="180" height="140" loading="lazy" />
+              <img class="side-photo" src={profileImageSrc} alt={ui.profileImageAlt} width="180" height="140" loading="lazy" />
               <p class="identity-name">{profile.name}</p>
               <p class="identity-role">{profile.title}</p>
             </div>
@@ -235,9 +241,9 @@ const academicProfiles = [
               </p>
             ) : null}
             <div class="quick-links">
-              {profile.cvUrl ? <a class="quick-link download-link" href={profile.cvUrl}><span aria-hidden="true">⬇</span>{ui.downloadCv}</a> : null}
-              {profile.publicationsPdfUrl ? (
-                <a class="quick-link download-link" href={profile.publicationsPdfUrl}><span aria-hidden="true">⬇</span>{ui.downloadPublicationsPdf}</a>
+              {cvUrl ? <a class="quick-link download-link" href={cvUrl}><span aria-hidden="true">⬇</span>{ui.downloadCv}</a> : null}
+              {publicationsPdfUrl ? (
+                <a class="quick-link download-link" href={publicationsPdfUrl}><span aria-hidden="true">⬇</span>{ui.downloadPublicationsPdf}</a>
               ) : null}
             </div>
           </aside>
@@ -379,7 +385,7 @@ const academicProfiles = [
             showPageAside ? (
               <aside class="side-panel">
                 <div class="identity-panel">
-                  <img class="side-photo" src="/images/oded-portrait.jpg" alt={ui.profileImageAlt} width="180" height="140" loading="lazy" />
+                  <img class="side-photo" src={profileImageSrc} alt={ui.profileImageAlt} width="180" height="140" loading="lazy" />
                   <p class="identity-name">{profile.name}</p>
                   <p class="identity-role">{profile.title}</p>
                 </div>
@@ -402,9 +408,9 @@ const academicProfiles = [
                 ) : null}
 
                 <div class="quick-links">
-                  {profile.cvUrl ? <a class="quick-link download-link" href={profile.cvUrl}><span aria-hidden="true">⬇</span>{ui.downloadCv}</a> : null}
-                  {profile.publicationsPdfUrl ? (
-                    <a class="quick-link download-link" href={profile.publicationsPdfUrl}><span aria-hidden="true">⬇</span>{ui.downloadPublicationsPdf}</a>
+                  {cvUrl ? <a class="quick-link download-link" href={cvUrl}><span aria-hidden="true">⬇</span>{ui.downloadCv}</a> : null}
+                  {publicationsPdfUrl ? (
+                    <a class="quick-link download-link" href={publicationsPdfUrl}><span aria-hidden="true">⬇</span>{ui.downloadPublicationsPdf}</a>
                   ) : null}
                 </div>
               </aside>

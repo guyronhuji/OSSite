@@ -1,7 +1,7 @@
 ---
 import '../styles/site.css';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
-import type { Locale } from '../lib/i18n';
+import { pageHref, withBase, type Locale } from '../lib/i18n';
 
 interface NavItem {
   href: string;
@@ -60,8 +60,8 @@ const { locale, dir, title, description, navItems, languageLinks, profile, ui, u
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description ?? profile.title} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <link rel="icon" href={withBase('/favicon.ico')} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link
@@ -80,7 +80,7 @@ const { locale, dir, title, description, navItems, languageLinks, profile, ui, u
         </div>
 
         <div class="banner-brand">
-          <a href={`/${locale}`} class="site-name">
+          <a href={pageHref(locale, [])} class="site-name">
             {profile.name}
           </a>
           <p class="site-title">{profile.title}</p>
