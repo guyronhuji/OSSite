@@ -12,6 +12,7 @@ const pages = defineCollection({
     showInNav: z.boolean().default(false),
     order: z.number().default(999),
     heroImage: z.string().optional(),
+    themeIcon: z.string().optional(),
   }),
 });
 

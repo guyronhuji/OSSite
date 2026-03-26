@@ -79,9 +79,10 @@ const childPages = localePages
       href,
       title: page.data.title,
       description: page.data.excerpt ?? page.data.description,
+      icon: page.data.themeIcon,
     };
   })
-  .filter((item): item is { href: string; title: string; description?: string } => item !== null);
+  .filter((item): item is { href: string; title: string; description?: string; icon?: string } => item !== null);
 
 const languageLinks = localeOrder.map((targetLocale) => {
   const exactMatch = allPages.find((page) => {
@@ -139,7 +140,7 @@ const showPageAside = !isResearchIndexPage && (childPages.length > 0 || Boolean(
 const researchThemeIcons = ['◼', '◷', '✦'];
 const researchThemes = childPages.map((child, index) => ({
   ...child,
-  icon: researchThemeIcons[index % researchThemeIcons.length],
+  icon: child.icon ?? researchThemeIcons[index % researchThemeIcons.length],
   accentClass: `theme-accent-${(index % 3) + 1}`,
 }));
 

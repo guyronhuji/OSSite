@@ -43,6 +43,9 @@ content:
       - name: heroImage
         label: Hero Image
         type: image
+      - name: themeIcon
+        label: Theme Icon
+        type: string
       - name: body
         label: Page Content
         type: rich-text
@@ -86,6 +89,9 @@ content:
       - name: heroImage
         label: Hero Image
         type: image
+      - name: themeIcon
+        label: Theme Icon
+        type: string
       - name: body
         label: Page Content
         type: rich-text
@@ -129,6 +135,9 @@ content:
       - name: heroImage
         label: Hero Image
         type: image
+      - name: themeIcon
+        label: Theme Icon
+        type: string
       - name: body
         label: Page Content
         type: rich-text
@@ -172,6 +181,9 @@ content:
       - name: heroImage
         label: Hero Image
         type: image
+      - name: themeIcon
+        label: Theme Icon
+        type: string
       - name: body
         label: Page Content
         type: rich-text
