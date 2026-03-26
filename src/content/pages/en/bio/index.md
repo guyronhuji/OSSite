@@ -6,7 +6,6 @@ excerpt: Education, appointments, grants, service, and teaching profile.
 showInNav: true
 order: 2
 ---
-
 This page provides a full professional biography based on the latest CV update (November 25, 2025).
 
 ## Personal and Academic Profile
@@ -83,7 +82,6 @@ Recent supervision includes MA theses on German nationalism, comparative politic
 
 ## Publications and CV
 
-For the complete publication record and full formal CV documents, use the download links in this site sidebar/footer:
+For the complete publication record and full formal CV documents, use the download links in this site.
 
-- CV PDF
-- Full publications list PDF
+&nbsp;
