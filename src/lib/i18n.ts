@@ -79,6 +79,9 @@ export const uiText: Record<
     filterForthcoming: string;
     academicProfiles: string;
     careerTimeline: string;
+    themeLabel: string;
+    themeLight: string;
+    themeDark: string;
   }
 > = {
   en: {
@@ -105,6 +108,9 @@ export const uiText: Record<
     filterForthcoming: 'Forthcoming',
     academicProfiles: 'Academic Profiles',
     careerTimeline: 'Career Timeline',
+    themeLabel: 'Theme',
+    themeLight: 'Light',
+    themeDark: 'Dark',
   },
   he: {
     skipToContent: 'דלג לתוכן',
@@ -130,6 +136,9 @@ export const uiText: Record<
     filterForthcoming: 'בקרוב',
     academicProfiles: 'פרופילים אקדמיים',
     careerTimeline: 'ציר זמן אקדמי',
+    themeLabel: 'ערכת נושא',
+    themeLight: 'בהיר',
+    themeDark: 'כהה',
   },
   de: {
     skipToContent: 'Zum Inhalt springen',
@@ -155,6 +164,9 @@ export const uiText: Record<
     filterForthcoming: 'Erscheint',
     academicProfiles: 'Akademische Profile',
     careerTimeline: 'Akademischer Zeitverlauf',
+    themeLabel: 'Design',
+    themeLight: 'Hell',
+    themeDark: 'Dunkel',
   },
   ar: {
     skipToContent: 'تخطي إلى المحتوى',
@@ -180,5 +192,8 @@ export const uiText: Record<
     filterForthcoming: 'قيد الصدور',
     academicProfiles: 'ملفات أكاديمية',
     careerTimeline: 'الخط الزمني الأكاديمي',
+    themeLabel: 'المظهر',
+    themeLight: 'فاتح',
+    themeDark: 'داكن',
   },
 };

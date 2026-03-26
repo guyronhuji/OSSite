@@ -31,6 +31,9 @@ interface UiText {
   skipToContent: string;
   navLabel: string;
   languageLabel: string;
+  themeLabel: string;
+  themeLight: string;
+  themeDark: string;
   contact: string;
   office: string;
   email: string;
@@ -66,6 +69,19 @@ const { locale, dir, title, description, navItems, languageLinks, profile, ui } 
       href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,700&family=Noto+Sans+Arabic:wght@400;500;600;700&family=Noto+Sans+Hebrew:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <script is:inline>
+      {`
+        (() => {
+          try {
+            const storedTheme = localStorage.getItem('theme-preference');
+            const theme = storedTheme === 'dark' ? 'dark' : 'light';
+            document.documentElement.dataset.theme = theme;
+          } catch {
+            document.documentElement.dataset.theme = 'light';
+          }
+        })();
+      `}
+    </script>
     <title>{title}</title>
   </head>
   <body>
@@ -75,6 +91,13 @@ const { locale, dir, title, description, navItems, languageLinks, profile, ui } 
       <header class="site-banner">
         <div class="banner-top">
           <LanguageSwitcher label={ui.languageLabel} links={languageLinks} />
+          <div class="theme-switcher">
+            <label for="theme-select" class="theme-label">{ui.themeLabel}</label>
+            <select id="theme-select" class="theme-select" aria-label={ui.themeLabel}>
+              <option value="light">{ui.themeLight}</option>
+              <option value="dark">{ui.themeDark}</option>
+            </select>
+          </div>
         </div>
 
         <div class="banner-brand">
@@ -123,5 +146,34 @@ const { locale, dir, title, description, navItems, languageLinks, profile, ui } 
         </footer>
       </div>
     </div>
+    <script is:inline>
+      {`
+        (() => {
+          const select = document.getElementById('theme-select');
+          if (!(select instanceof HTMLSelectElement)) return;
+
+          const root = document.documentElement;
+          const applyTheme = (theme) => {
+            root.dataset.theme = theme;
+            select.value = theme;
+          };
+
+          let storedTheme = null;
+          try {
+            storedTheme = localStorage.getItem('theme-preference');
+          } catch {}
+          const initialTheme = storedTheme === 'dark' ? 'dark' : 'light';
+          applyTheme(initialTheme);
+
+          select.addEventListener('change', () => {
+            const selected = select.value === 'dark' ? 'dark' : 'light';
+            try {
+              localStorage.setItem('theme-preference', selected);
+            } catch {}
+            applyTheme(selected);
+          });
+        })();
+      `}
+    </script>
   </body>
 </html>
