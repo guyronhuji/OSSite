@@ -36,7 +36,6 @@ Dr. Oded Y. Steinberg is a modern historian and Senior Lecturer at the Hebrew Un
 - **2022-Present:** MA Advisor, German Studies (European Forum).
 - **2020-Present:** Scholarship Committee, European Forum.
 - **2022-2024:** Library Committee.
-- **2023-2024:** Reserves' duty liaison, Department of International Relations.
 
 ## Service in Other Academic Institutions
 
