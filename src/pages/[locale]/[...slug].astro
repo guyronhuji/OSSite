@@ -254,165 +254,171 @@ const academicProfiles = [
           {entry.data.description ? <p class="page-description">{entry.data.description}</p> : null}
         </header>
 
-        <div class:list={['content-layout', { 'single-column': !showPageAside }]}>
-          <article class="prose">
-            <Content />
+        {
+          isResearchIndexPage ? (
+            <section class="research-page-flow">
+              <article class="prose research-intro">
+                <Content />
+              </article>
 
-            {
-              isResearchIndexPage ? (
-                <section class="theme-grid" aria-label={ui.researchThemes}>
-                  {
-                    researchThemes.map((theme) => (
-                      <a href={theme.href} class:list={['theme-card', theme.accentClass]}>
-                        <span class="theme-icon" aria-hidden="true">{theme.icon}</span>
-                        <h3>{theme.title}</h3>
-                        {theme.description ? <p>{theme.description}</p> : null}
-                      </a>
-                    ))
-                  }
-                </section>
-              ) : null
-            }
+              <section class:list={['theme-grid', 'theme-grid-full']} aria-label={ui.researchThemes}>
+                {
+                  researchThemes.map((theme) => (
+                    <a href={theme.href} class:list={['theme-card', theme.accentClass]}>
+                      <span class="theme-icon" aria-hidden="true">{theme.icon}</span>
+                      <h3>{theme.title}</h3>
+                      {theme.description ? <p>{theme.description}</p> : null}
+                    </a>
+                  ))
+                }
+              </section>
+            </section>
+          ) : (
+            <div class:list={['content-layout', { 'single-column': !showPageAside }]}>
+              <article class="prose">
+                <Content />
 
-            {
-              isBioPage ? (
-                <section class="bio-timeline" aria-label={ui.careerTimeline}>
-                  <h2>{ui.careerTimeline}</h2>
-                  <ol>
-                    {
-                      timelineItems.map((item) => (
-                        <li>
-                          <div class="timeline-year">{item.years}</div>
-                          <div class="timeline-content">
-                            <p class="timeline-title">{item.title}</p>
-                            <p>{item.detail}</p>
-                          </div>
-                        </li>
-                      ))
-                    }
-                  </ol>
-                </section>
-              ) : null
-            }
+                {
+                  isBioPage ? (
+                    <section class="bio-timeline" aria-label={ui.careerTimeline}>
+                      <h2>{ui.careerTimeline}</h2>
+                      <ol>
+                        {
+                          timelineItems.map((item) => (
+                            <li>
+                              <div class="timeline-year">{item.years}</div>
+                              <div class="timeline-content">
+                                <p class="timeline-title">{item.title}</p>
+                                <p>{item.detail}</p>
+                              </div>
+                            </li>
+                          ))
+                        }
+                      </ol>
+                    </section>
+                  ) : null
+                }
 
-            {
-              isPublicationsPage ? (
-                <>
-                  <div class="pub-filter" data-pub-filter>
-                    <button type="button" class="pub-filter-btn active" data-filter="all">{ui.filterAll}</button>
-                    <button type="button" class="pub-filter-btn" data-filter="books">{ui.filterBooks}</button>
-                    <button type="button" class="pub-filter-btn" data-filter="articles">{ui.filterArticles}</button>
-                    <button type="button" class="pub-filter-btn" data-filter="chapters">{ui.filterChapters}</button>
-                    <button type="button" class="pub-filter-btn" data-filter="forthcoming">{ui.filterForthcoming}</button>
-                  </div>
+                {
+                  isPublicationsPage ? (
+                    <>
+                      <div class="pub-filter" data-pub-filter>
+                        <button type="button" class="pub-filter-btn active" data-filter="all">{ui.filterAll}</button>
+                        <button type="button" class="pub-filter-btn" data-filter="books">{ui.filterBooks}</button>
+                        <button type="button" class="pub-filter-btn" data-filter="articles">{ui.filterArticles}</button>
+                        <button type="button" class="pub-filter-btn" data-filter="chapters">{ui.filterChapters}</button>
+                        <button type="button" class="pub-filter-btn" data-filter="forthcoming">{ui.filterForthcoming}</button>
+                      </div>
 
-                  <ul class="publication-list" role="list" data-publication-list>
-                    {
-                      publications.map((item) => {
-                        const group = publicationGroup(item);
-                        return (
-                          <li class:list={['publication-item', `type-${group}`, { 'is-forthcoming': item.status === 'forthcoming' }]} data-type={group}>
-                            <div class="publication-meta">
-                              <span>{item.year}</span>
-                              <span>·</span>
-                              <span class:list={['pub-badge', group]}>{publicationTypeLabel(item)}</span>
-                            </div>
-                            <p class="publication-title">{item.title}</p>
-                            <p class="publication-details">
-                              {item.authors}. {item.venue}
-                              {item.details ? ` ${item.details}` : ''}
-                              {item.doi ? ` DOI: ${item.doi}` : ''}
-                            </p>
-                            {item.url ? <p class="publication-details"><a href={item.url} target="_blank" rel="noreferrer">Open link</a></p> : null}
-                          </li>
-                        );
-                      })
-                    }
-                  </ul>
+                      <ul class="publication-list" role="list" data-publication-list>
+                        {
+                          publications.map((item) => {
+                            const group = publicationGroup(item);
+                            return (
+                              <li class:list={['publication-item', `type-${group}`, { 'is-forthcoming': item.status === 'forthcoming' }]} data-type={group}>
+                                <div class="publication-meta">
+                                  <span>{item.year}</span>
+                                  <span>·</span>
+                                  <span class:list={['pub-badge', group]}>{publicationTypeLabel(item)}</span>
+                                </div>
+                                <p class="publication-title">{item.title}</p>
+                                <p class="publication-details">
+                                  {item.authors}. {item.venue}
+                                  {item.details ? ` ${item.details}` : ''}
+                                  {item.doi ? ` DOI: ${item.doi}` : ''}
+                                </p>
+                                {item.url ? <p class="publication-details"><a href={item.url} target="_blank" rel="noreferrer">Open link</a></p> : null}
+                              </li>
+                            );
+                          })
+                        }
+                      </ul>
 
-                  <script is:inline>
-                    (() => {
-                      const root = document.currentScript?.closest('article');
-                      if (!root) return;
-                      const filterWrap = root.querySelector('[data-pub-filter]');
-                      const list = root.querySelector('[data-publication-list]');
-                      if (!filterWrap || !list) return;
-                      const buttons = Array.from(filterWrap.querySelectorAll('[data-filter]'));
-                      const items = Array.from(list.querySelectorAll('[data-type]'));
+                      <script is:inline>
+                        (() => {
+                          const root = document.currentScript?.closest('article');
+                          if (!root) return;
+                          const filterWrap = root.querySelector('[data-pub-filter]');
+                          const list = root.querySelector('[data-publication-list]');
+                          if (!filterWrap || !list) return;
+                          const buttons = Array.from(filterWrap.querySelectorAll('[data-filter]'));
+                          const items = Array.from(list.querySelectorAll('[data-type]'));
 
-                      const applyFilter = (value) => {
-                        items.forEach((item) => {
-                          item.hidden = value !== 'all' && item.dataset.type !== value;
-                        });
-                        buttons.forEach((btn) => {
-                          btn.classList.toggle('active', btn.dataset.filter === value);
-                        });
-                      };
+                          const applyFilter = (value) => {
+                            items.forEach((item) => {
+                              item.hidden = value !== 'all' && item.dataset.type !== value;
+                            });
+                            buttons.forEach((btn) => {
+                              btn.classList.toggle('active', btn.dataset.filter === value);
+                            });
+                          };
 
-                      buttons.forEach((btn) => {
-                        btn.addEventListener('click', () => applyFilter(btn.dataset.filter || 'all'));
-                      });
-                    })();
-                  </script>
-                </>
-              ) : null
-            }
+                          buttons.forEach((btn) => {
+                            btn.addEventListener('click', () => applyFilter(btn.dataset.filter || 'all'));
+                          });
+                        })();
+                      </script>
+                    </>
+                  ) : null
+                }
 
-            {
-              isContactPage ? (
-                <section class="profile-links" aria-label={ui.academicProfiles}>
-                  <h2>{ui.academicProfiles}</h2>
-                  <div class="profile-link-grid">
-                    {
-                      academicProfiles.map((link) => (
-                        <a href={link.href} target="_blank" rel="noreferrer" class="profile-link-card">
-                          <span class="profile-link-icon" aria-hidden="true">{link.icon}</span>
-                          <span>{link.label}</span>
-                        </a>
-                      ))
-                    }
-                  </div>
-                </section>
-              ) : null
-            }
-          </article>
-
-          {
-            showPageAside ? (
-              <aside class="side-panel">
-                <div class="identity-panel">
-                  <img class="side-photo" src={profileImageSrc} alt={ui.profileImageAlt} width="180" height="140" loading="lazy" />
-                  <p class="identity-name">{profile.name}</p>
-                  <p class="identity-role">{profile.title}</p>
-                </div>
-
-                {childPages.length > 0 ? (
-                  <>
-                    <h2>{ui.subpages}</h2>
-                    <ul role="list">
-                      {
-                        childPages.map((child) => (
-                          <li>
-                            <a href={child.href}>
-                              {child.title}
+                {
+                  isContactPage ? (
+                    <section class="profile-links" aria-label={ui.academicProfiles}>
+                      <h2>{ui.academicProfiles}</h2>
+                      <div class="profile-link-grid">
+                        {
+                          academicProfiles.map((link) => (
+                            <a href={link.href} target="_blank" rel="noreferrer" class="profile-link-card">
+                              <span class="profile-link-icon" aria-hidden="true">{link.icon}</span>
+                              <span>{link.label}</span>
                             </a>
-                          </li>
-                        ))
-                      }
-                    </ul>
-                  </>
-                ) : null}
+                          ))
+                        }
+                      </div>
+                    </section>
+                  ) : null
+                }
+              </article>
 
-                <div class="quick-links">
-                  {cvUrl ? <a class="quick-link download-link" href={cvUrl}><span aria-hidden="true">⬇</span>{ui.downloadCv}</a> : null}
-                  {publicationsPdfUrl ? (
-                    <a class="quick-link download-link" href={publicationsPdfUrl}><span aria-hidden="true">⬇</span>{ui.downloadPublicationsPdf}</a>
-                  ) : null}
-                </div>
-              </aside>
-            ) : null
-          }
-        </div>
+              {
+                showPageAside ? (
+                  <aside class="side-panel">
+                    <div class="identity-panel">
+                      <img class="side-photo" src={profileImageSrc} alt={ui.profileImageAlt} width="180" height="140" loading="lazy" />
+                      <p class="identity-name">{profile.name}</p>
+                      <p class="identity-role">{profile.title}</p>
+                    </div>
+
+                    {childPages.length > 0 ? (
+                      <>
+                        <h2>{ui.subpages}</h2>
+                        <ul role="list">
+                          {
+                            childPages.map((child) => (
+                              <li>
+                                <a href={child.href}>
+                                  {child.title}
+                                </a>
+                              </li>
+                            ))
+                          }
+                        </ul>
+                      </>
+                    ) : null}
+
+                    <div class="quick-links">
+                      {cvUrl ? <a class="quick-link download-link" href={cvUrl}><span aria-hidden="true">⬇</span>{ui.downloadCv}</a> : null}
+                      {publicationsPdfUrl ? (
+                        <a class="quick-link download-link" href={publicationsPdfUrl}><span aria-hidden="true">⬇</span>{ui.downloadPublicationsPdf}</a>
+                      ) : null}
+                    </div>
+                  </aside>
+                ) : null
+              }
+            </div>
+          )
+        }
       </>
     )
   }
