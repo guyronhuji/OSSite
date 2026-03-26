@@ -1,7 +1,7 @@
 ---
 title: Anglo-German Relations
 description: Race, nation, migration, and intellectual exchange in the nineteenth century.
-excerpt: The historical roots of Teutonic identity and liberal thought.
+excerpt: This theme traces how ideas moved between British and German-speaking scholars and how those exchanges shaped debates on race, nation, and historical belonging. It examines Victorian-era intellectual networks and explains why their categories still influence modern historical narratives.
 showInNav: false
 order: 1
 ---

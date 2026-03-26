@@ -1,7 +1,7 @@
 ---
 title: Humanitarian Networks and Advocacy
 description: Informal aid networks, Christian minorities, and racialized humanitarian discourse.
-excerpt: New perspectives on humanitarian activism in the late nineteenth century.
+excerpt: This theme studies informal Western advocacy networks that campaigned for Christian Armenians in the late nineteenth century. It shows how humanitarian action was shaped by religious, racial, and geopolitical assumptions as activists built pressure through media, fundraising, and parliamentary debate.
 showInNav: false
 order: 3
 ---

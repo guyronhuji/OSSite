@@ -1,7 +1,7 @@
 ---
 title: Time and Periodization
 description: Historical time, boundaries between periods, and the politics of chronology.
-excerpt: Conceptual history of periodization across Europe and beyond.
+excerpt: This theme explores how historians divide time into periods and how those boundaries shape political and cultural interpretation. It develops the concept of the time border to show that major transitions are layered processes rather than simple historical breaks.
 showInNav: false
 order: 2
 ---

@@ -50,6 +50,14 @@ export const uiText: Record<
     sourceDateLabel: string;
     profileImageAlt: string;
     bookCoverAlt: string;
+    researchThemes: string;
+    filterAll: string;
+    filterBooks: string;
+    filterArticles: string;
+    filterChapters: string;
+    filterForthcoming: string;
+    academicProfiles: string;
+    careerTimeline: string;
   }
 > = {
   en: {
@@ -70,6 +78,14 @@ export const uiText: Record<
     sourceDateLabel: 'Data refreshed',
     profileImageAlt: 'Portrait of Dr. Oded Steinberg',
     bookCoverAlt: 'Cover of Race, Nation, History',
+    researchThemes: 'Research Themes',
+    filterAll: 'All',
+    filterBooks: 'Books',
+    filterArticles: 'Articles',
+    filterChapters: 'Chapters',
+    filterForthcoming: 'Forthcoming',
+    academicProfiles: 'Academic Profiles',
+    careerTimeline: 'Career Timeline',
   },
   he: {
     skipToContent: 'דלג לתוכן',
@@ -89,6 +105,14 @@ export const uiText: Record<
     sourceDateLabel: 'עודכן בתאריך',
     profileImageAlt: 'דיוקן של ד״ר עודד שטיינברג',
     bookCoverAlt: 'עטיפת הספר Race, Nation, History',
+    researchThemes: 'נושאי מחקר',
+    filterAll: 'הכל',
+    filterBooks: 'ספרים',
+    filterArticles: 'מאמרים',
+    filterChapters: 'פרקים',
+    filterForthcoming: 'בקרוב',
+    academicProfiles: 'פרופילים אקדמיים',
+    careerTimeline: 'ציר זמן אקדמי',
   },
   de: {
     skipToContent: 'Zum Inhalt springen',
@@ -108,6 +132,14 @@ export const uiText: Record<
     sourceDateLabel: 'Daten aktualisiert',
     profileImageAlt: 'Portrat von Dr. Oded Steinberg',
     bookCoverAlt: 'Buchcover von Race, Nation, History',
+    researchThemes: 'Forschungsthemen',
+    filterAll: 'Alle',
+    filterBooks: 'Bucher',
+    filterArticles: 'Artikel',
+    filterChapters: 'Kapitel',
+    filterForthcoming: 'Erscheint',
+    academicProfiles: 'Akademische Profile',
+    careerTimeline: 'Akademischer Zeitverlauf',
   },
   ar: {
     skipToContent: 'تخطي إلى المحتوى',
@@ -127,5 +159,13 @@ export const uiText: Record<
     sourceDateLabel: 'تاريخ تحديث البيانات',
     profileImageAlt: 'صورة شخصية للدكتور عوديد شتاينبرغ',
     bookCoverAlt: 'غلاف كتاب Race, Nation, History',
+    researchThemes: 'محاور البحث',
+    filterAll: 'الكل',
+    filterBooks: 'كتب',
+    filterArticles: 'مقالات',
+    filterChapters: 'فصول',
+    filterForthcoming: 'قيد الصدور',
+    academicProfiles: 'ملفات أكاديمية',
+    careerTimeline: 'الخط الزمني الأكاديمي',
   },
 };

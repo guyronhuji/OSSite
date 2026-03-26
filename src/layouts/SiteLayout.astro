@@ -108,29 +108,20 @@ const { locale, dir, title, description, navItems, languageLinks, profile, ui, u
         </main>
 
         <footer class="site-footer">
-          <div class="footer-grid">
-            <div>
-              <p class="footer-title">{profile.name}</p>
-              <p>{profile.affiliation}</p>
-            </div>
-            <div>
-              <p class="footer-title">{ui.contact}</p>
-              {profile.office ? <p><strong>{ui.office}:</strong> {profile.office}</p> : null}
-              <p>
-                <strong>{ui.email}:</strong>{' '}
-                <a href={`mailto:${profile.email}`}>{profile.email}</a>
-              </p>
-              {profile.phone ? (
-                <p>
-                  <strong>{ui.phone}:</strong> <a href={`tel:${profile.phone}`}>{profile.phone}</a>
-                </p>
-              ) : null}
-            </div>
-            <div>
-              <p>
-                <strong>{ui.sourceDateLabel}:</strong> {updatedAt}
-              </p>
-            </div>
+          <div class="footer-bar">
+            <p class="footer-copy">© {new Date().getFullYear()} {profile.name}</p>
+            <nav aria-label={ui.navLabel} class="footer-links">
+              <ul role="list">
+                {
+                  navItems.map((item) => (
+                    <li>
+                      <a href={item.href}>{item.label}</a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </nav>
+            <p class="footer-updated"><strong>{ui.sourceDateLabel}:</strong> {updatedAt}</p>
           </div>
         </footer>
       </div>

@@ -78,7 +78,7 @@ const childPages = localePages
     return {
       href,
       title: page.data.title,
-      description: page.data.excerpt,
+      description: page.data.excerpt ?? page.data.description,
     };
   })
   .filter((item): item is { href: string; title: string; description?: string } => item !== null);
@@ -125,8 +125,50 @@ const pageDescription = entry.data.description ?? entry.data.excerpt ?? profile.
 const isHome = slugParts.length === 0;
 const isPublicationsPage = slugParts.length === 1 && slugParts[0] === 'publications';
 const isResearchIndexPage = slugParts.length === 1 && slugParts[0] === 'research';
+const isBioPage = slugParts.length === 1 && slugParts[0] === 'bio';
+const isContactPage = slugParts.length === 1 && slugParts[0] === 'contact';
 const sectionCards = navItems.filter((item) => item.href !== pageHref(locale, []));
 const showPageAside = !isResearchIndexPage && (childPages.length > 0 || Boolean(profile.cvUrl) || Boolean(profile.publicationsPdfUrl));
+
+const researchThemeIcons = ['◼', '◷', '✦'];
+const researchThemes = childPages.map((child, index) => ({
+  ...child,
+  icon: researchThemeIcons[index % researchThemeIcons.length],
+  accentClass: `theme-accent-${(index % 3) + 1}`,
+}));
+
+const publicationGroup = (item: (typeof publications)[number]) => {
+  if (item.status === 'forthcoming') return 'forthcoming';
+  if (item.type === 'book' || item.type === 'edited_volume') return 'books';
+  if (item.type === 'chapter') return 'chapters';
+  return 'articles';
+};
+
+const publicationTypeLabel = (item: (typeof publications)[number]) => {
+  if (item.status === 'forthcoming') return ui.filterForthcoming;
+  if (item.type === 'book' || item.type === 'edited_volume') return ui.filterBooks;
+  if (item.type === 'chapter') return ui.filterChapters;
+  return ui.filterArticles;
+};
+
+const timelineItems = [
+  { years: '2003-2006', title: 'BA Studies', detail: 'Hebrew University of Jerusalem' },
+  { years: '2007-2010', title: 'MA Studies', detail: 'European Forum, Hebrew University (Supervisor: Prof. Dan Diner)' },
+  { years: '2011-2015', title: 'DPhil', detail: 'University of Oxford (Supervisor: Prof. Oliver Zimmer)' },
+  { years: '2015-2017', title: 'Postdoctoral Fellow', detail: 'Freie Universitat Berlin and Hebrew University' },
+  { years: '2017-2019', title: 'Postdoctoral Fellow', detail: 'Hubert H. Humphrey Center, Ben-Gurion University' },
+  { years: '2019-2020', title: 'Postdoctoral Fellow', detail: 'CSoC, Ben-Gurion University' },
+  { years: '2020-2024', title: 'Lecturer', detail: 'European Forum and Department of International Relations, HUJI' },
+  { years: '2024-Present', title: 'Senior Lecturer', detail: 'European Forum and Department of International Relations, HUJI' },
+];
+
+const academicProfiles = [
+  { label: 'ORCID', href: 'https://orcid.org/0000-0002-4399-7889', icon: 'ID' },
+  { label: 'Google Scholar', href: 'https://scholar.google.com/scholar?q=Oded+Y.+Steinberg', icon: 'GS' },
+  { label: 'Academia.edu', href: 'https://huji.academia.edu/OdedSteinberg', icon: 'AC' },
+  { label: 'ResearchGate', href: 'https://www.researchgate.net/search/publication?q=Oded%20Y.%20Steinberg', icon: 'RG' },
+  { label: 'HUJI Profile', href: 'https://odedsteinberg.huji.ac.il/', icon: 'HU' },
+];
 ---
 
 <SiteLayout
@@ -177,6 +219,11 @@ const showPageAside = !isResearchIndexPage && (childPages.length > 0 || Boolean(
           </article>
 
           <aside class="side-panel">
+            <div class="identity-panel">
+              <img class="side-photo" src="/images/oded-portrait.jpg" alt={ui.profileImageAlt} width="180" height="140" loading="lazy" />
+              <p class="identity-name">{profile.name}</p>
+              <p class="identity-role">{profile.title}</p>
+            </div>
             <h2>{ui.contact}</h2>
             {profile.office ? <p><strong>{ui.office}:</strong> {profile.office}</p> : null}
             <p>
@@ -188,9 +235,9 @@ const showPageAside = !isResearchIndexPage && (childPages.length > 0 || Boolean(
               </p>
             ) : null}
             <div class="quick-links">
-              {profile.cvUrl ? <a class="quick-link" href={profile.cvUrl}>{ui.downloadCv}</a> : null}
+              {profile.cvUrl ? <a class="quick-link download-link" href={profile.cvUrl}><span aria-hidden="true">⬇</span>{ui.downloadCv}</a> : null}
               {profile.publicationsPdfUrl ? (
-                <a class="quick-link" href={profile.publicationsPdfUrl}>{ui.downloadPublicationsPdf}</a>
+                <a class="quick-link download-link" href={profile.publicationsPdfUrl}><span aria-hidden="true">⬇</span>{ui.downloadPublicationsPdf}</a>
               ) : null}
             </div>
           </aside>
@@ -203,32 +250,127 @@ const showPageAside = !isResearchIndexPage && (childPages.length > 0 || Boolean(
           {entry.data.description ? <p class="page-description">{entry.data.description}</p> : null}
         </header>
 
-        <div class="content-layout">
+        <div class:list={['content-layout', { 'single-column': !showPageAside }]}>
           <article class="prose">
             <Content />
 
             {
-              isPublicationsPage ? (
-                <ul class="publication-list" role="list">
+              isResearchIndexPage ? (
+                <section class="theme-grid" aria-label={ui.researchThemes}>
                   {
-                    publications.map((item) => (
-                      <li class="publication-item">
-                        <div class="publication-meta">
-                          <span>{item.year}</span>
-                          <span>·</span>
-                          <span>{item.status === 'forthcoming' ? 'Forthcoming' : item.type.replace('_', ' ')}</span>
-                        </div>
-                        <p class="publication-title">{item.title}</p>
-                        <p class="publication-details">
-                          {item.authors}. {item.venue}
-                          {item.details ? ` ${item.details}` : ''}
-                          {item.doi ? ` DOI: ${item.doi}` : ''}
-                        </p>
-                        {item.url ? <p class="publication-details"><a href={item.url} target="_blank" rel="noreferrer">Open link</a></p> : null}
-                      </li>
+                    researchThemes.map((theme) => (
+                      <a href={theme.href} class:list={['theme-card', theme.accentClass]}>
+                        <span class="theme-icon" aria-hidden="true">{theme.icon}</span>
+                        <h3>{theme.title}</h3>
+                        {theme.description ? <p>{theme.description}</p> : null}
+                      </a>
                     ))
                   }
-                </ul>
+                </section>
+              ) : null
+            }
+
+            {
+              isBioPage ? (
+                <section class="bio-timeline" aria-label={ui.careerTimeline}>
+                  <h2>{ui.careerTimeline}</h2>
+                  <ol>
+                    {
+                      timelineItems.map((item) => (
+                        <li>
+                          <div class="timeline-year">{item.years}</div>
+                          <div class="timeline-content">
+                            <p class="timeline-title">{item.title}</p>
+                            <p>{item.detail}</p>
+                          </div>
+                        </li>
+                      ))
+                    }
+                  </ol>
+                </section>
+              ) : null
+            }
+
+            {
+              isPublicationsPage ? (
+                <>
+                  <div class="pub-filter" data-pub-filter>
+                    <button type="button" class="pub-filter-btn active" data-filter="all">{ui.filterAll}</button>
+                    <button type="button" class="pub-filter-btn" data-filter="books">{ui.filterBooks}</button>
+                    <button type="button" class="pub-filter-btn" data-filter="articles">{ui.filterArticles}</button>
+                    <button type="button" class="pub-filter-btn" data-filter="chapters">{ui.filterChapters}</button>
+                    <button type="button" class="pub-filter-btn" data-filter="forthcoming">{ui.filterForthcoming}</button>
+                  </div>
+
+                  <ul class="publication-list" role="list" data-publication-list>
+                    {
+                      publications.map((item) => {
+                        const group = publicationGroup(item);
+                        return (
+                          <li class:list={['publication-item', `type-${group}`, { 'is-forthcoming': item.status === 'forthcoming' }]} data-type={group}>
+                            <div class="publication-meta">
+                              <span>{item.year}</span>
+                              <span>·</span>
+                              <span class:list={['pub-badge', group]}>{publicationTypeLabel(item)}</span>
+                            </div>
+                            <p class="publication-title">{item.title}</p>
+                            <p class="publication-details">
+                              {item.authors}. {item.venue}
+                              {item.details ? ` ${item.details}` : ''}
+                              {item.doi ? ` DOI: ${item.doi}` : ''}
+                            </p>
+                            {item.url ? <p class="publication-details"><a href={item.url} target="_blank" rel="noreferrer">Open link</a></p> : null}
+                          </li>
+                        );
+                      })
+                    }
+                  </ul>
+
+                  <script is:inline>
+                    {`
+                      (() => {
+                        const root = document.currentScript?.closest('article');
+                        if (!root) return;
+                        const filterWrap = root.querySelector('[data-pub-filter]');
+                        const list = root.querySelector('[data-publication-list]');
+                        if (!filterWrap || !list) return;
+                        const buttons = Array.from(filterWrap.querySelectorAll('[data-filter]'));
+                        const items = Array.from(list.querySelectorAll('[data-type]'));
+
+                        const applyFilter = (value) => {
+                          items.forEach((item) => {
+                            item.hidden = value !== 'all' && item.dataset.type !== value;
+                          });
+                          buttons.forEach((btn) => {
+                            btn.classList.toggle('active', btn.dataset.filter === value);
+                          });
+                        };
+
+                        buttons.forEach((btn) => {
+                          btn.addEventListener('click', () => applyFilter(btn.dataset.filter || 'all'));
+                        });
+                      })();
+                    `}
+                  </script>
+                </>
+              ) : null
+            }
+
+            {
+              isContactPage ? (
+                <section class="profile-links" aria-label={ui.academicProfiles}>
+                  <h2>{ui.academicProfiles}</h2>
+                  <div class="profile-link-grid">
+                    {
+                      academicProfiles.map((link) => (
+                        <a href={link.href} target="_blank" rel="noreferrer" class="profile-link-card">
+                          <span class="profile-link-icon" aria-hidden="true">{link.icon}</span>
+                          <span>{link.label}</span>
+                        </a>
+                      ))
+                    }
+                  </div>
+                </section>
               ) : null
             }
           </article>
@@ -236,6 +378,12 @@ const showPageAside = !isResearchIndexPage && (childPages.length > 0 || Boolean(
           {
             showPageAside ? (
               <aside class="side-panel">
+                <div class="identity-panel">
+                  <img class="side-photo" src="/images/oded-portrait.jpg" alt={ui.profileImageAlt} width="180" height="140" loading="lazy" />
+                  <p class="identity-name">{profile.name}</p>
+                  <p class="identity-role">{profile.title}</p>
+                </div>
+
                 {childPages.length > 0 ? (
                   <>
                     <h2>{ui.subpages}</h2>
@@ -254,9 +402,9 @@ const showPageAside = !isResearchIndexPage && (childPages.length > 0 || Boolean(
                 ) : null}
 
                 <div class="quick-links">
-                  {profile.cvUrl ? <a class="quick-link" href={profile.cvUrl}>{ui.downloadCv}</a> : null}
+                  {profile.cvUrl ? <a class="quick-link download-link" href={profile.cvUrl}><span aria-hidden="true">⬇</span>{ui.downloadCv}</a> : null}
                   {profile.publicationsPdfUrl ? (
-                    <a class="quick-link" href={profile.publicationsPdfUrl}>{ui.downloadPublicationsPdf}</a>
+                    <a class="quick-link download-link" href={profile.publicationsPdfUrl}><span aria-hidden="true">⬇</span>{ui.downloadPublicationsPdf}</a>
                   ) : null}
                 </div>
               </aside>
