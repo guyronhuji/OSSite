@@ -331,30 +331,28 @@ const academicProfiles = [
                   </ul>
 
                   <script is:inline>
-                    {`
-                      (() => {
-                        const root = document.currentScript?.closest('article');
-                        if (!root) return;
-                        const filterWrap = root.querySelector('[data-pub-filter]');
-                        const list = root.querySelector('[data-publication-list]');
-                        if (!filterWrap || !list) return;
-                        const buttons = Array.from(filterWrap.querySelectorAll('[data-filter]'));
-                        const items = Array.from(list.querySelectorAll('[data-type]'));
+                    (() => {
+                      const root = document.currentScript?.closest('article');
+                      if (!root) return;
+                      const filterWrap = root.querySelector('[data-pub-filter]');
+                      const list = root.querySelector('[data-publication-list]');
+                      if (!filterWrap || !list) return;
+                      const buttons = Array.from(filterWrap.querySelectorAll('[data-filter]'));
+                      const items = Array.from(list.querySelectorAll('[data-type]'));
 
-                        const applyFilter = (value) => {
-                          items.forEach((item) => {
-                            item.hidden = value !== 'all' && item.dataset.type !== value;
-                          });
-                          buttons.forEach((btn) => {
-                            btn.classList.toggle('active', btn.dataset.filter === value);
-                          });
-                        };
-
-                        buttons.forEach((btn) => {
-                          btn.addEventListener('click', () => applyFilter(btn.dataset.filter || 'all'));
+                      const applyFilter = (value) => {
+                        items.forEach((item) => {
+                          item.hidden = value !== 'all' && item.dataset.type !== value;
                         });
-                      })();
-                    `}
+                        buttons.forEach((btn) => {
+                          btn.classList.toggle('active', btn.dataset.filter === value);
+                        });
+                      };
+
+                      buttons.forEach((btn) => {
+                        btn.addEventListener('click', () => applyFilter(btn.dataset.filter || 'all'));
+                      });
+                    })();
                   </script>
                 </>
               ) : null

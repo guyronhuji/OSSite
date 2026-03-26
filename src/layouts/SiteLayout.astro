@@ -70,17 +70,15 @@ const { locale, dir, title, description, navItems, languageLinks, profile, ui } 
       rel="stylesheet"
     />
     <script is:inline>
-      {`
-        (() => {
-          try {
-            const storedTheme = localStorage.getItem('theme-preference');
-            const theme = storedTheme === 'dark' ? 'dark' : 'light';
-            document.documentElement.dataset.theme = theme;
-          } catch {
-            document.documentElement.dataset.theme = 'light';
-          }
-        })();
-      `}
+      (() => {
+        try {
+          const storedTheme = localStorage.getItem('theme-preference');
+          const theme = storedTheme === 'dark' ? 'dark' : 'light';
+          document.documentElement.dataset.theme = theme;
+        } catch {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
     </script>
     <title>{title}</title>
   </head>
@@ -147,33 +145,31 @@ const { locale, dir, title, description, navItems, languageLinks, profile, ui } 
       </div>
     </div>
     <script is:inline>
-      {`
-        (() => {
-          const select = document.getElementById('theme-select');
-          if (!(select instanceof HTMLSelectElement)) return;
+      (() => {
+        const select = document.getElementById('theme-select');
+        if (!(select instanceof HTMLSelectElement)) return;
 
-          const root = document.documentElement;
-          const applyTheme = (theme) => {
-            root.dataset.theme = theme;
-            select.value = theme;
-          };
+        const root = document.documentElement;
+        const applyTheme = (theme) => {
+          root.dataset.theme = theme;
+          select.value = theme;
+        };
 
-          let storedTheme = null;
+        let storedTheme = null;
+        try {
+          storedTheme = localStorage.getItem('theme-preference');
+        } catch {}
+        const initialTheme = storedTheme === 'dark' ? 'dark' : 'light';
+        applyTheme(initialTheme);
+
+        select.addEventListener('change', () => {
+          const selected = select.value === 'dark' ? 'dark' : 'light';
           try {
-            storedTheme = localStorage.getItem('theme-preference');
+            localStorage.setItem('theme-preference', selected);
           } catch {}
-          const initialTheme = storedTheme === 'dark' ? 'dark' : 'light';
-          applyTheme(initialTheme);
-
-          select.addEventListener('change', () => {
-            const selected = select.value === 'dark' ? 'dark' : 'light';
-            try {
-              localStorage.setItem('theme-preference', selected);
-            } catch {}
-            applyTheme(selected);
-          });
-        })();
-      `}
+          applyTheme(selected);
+        });
+      })();
     </script>
   </body>
 </html>
