@@ -778,12 +778,6 @@ html:lang(ar) body {
   color: var(--primary);
 }
 
-.source-note {
-  margin-top: 1rem;
-  font-size: 0.89rem;
-  color: var(--ink-muted);
-}
-
 .prose h2 a,
 .prose h3 a {
   color: var(--ink);

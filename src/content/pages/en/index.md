@@ -1,7 +1,7 @@
 ---
 title: Dr. Oded Y. Steinberg
 navTitle: Home
-description: Homepage text migrated from the current HUJI site.
+description: Modern intellectual history, nationalism, and humanitarian advocacy.
 excerpt: Academic profile and research interests.
 showInNav: true
 order: 1
