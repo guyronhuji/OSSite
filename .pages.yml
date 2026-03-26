@@ -1,13 +1,16 @@
 media:
   input: public/uploads
   output: /uploads
+  rename: true
 
 content:
   - name: pages_en
     label: Pages (English)
     type: collection
     path: src/content/pages/en
-    filename: '{primary}.md'
+    filename:
+      template: '{primary}.md'
+      field: create
     subfolders: true
     view:
       layout: tree
@@ -48,7 +51,9 @@ content:
     label: Pages (Hebrew)
     type: collection
     path: src/content/pages/he
-    filename: '{primary}.md'
+    filename:
+      template: '{primary}.md'
+      field: create
     subfolders: true
     view:
       layout: tree
@@ -89,7 +94,9 @@ content:
     label: Pages (German)
     type: collection
     path: src/content/pages/de
-    filename: '{primary}.md'
+    filename:
+      template: '{primary}.md'
+      field: create
     subfolders: true
     view:
       layout: tree
@@ -130,7 +137,9 @@ content:
     label: Pages (Arabic)
     type: collection
     path: src/content/pages/ar
-    filename: '{primary}.md'
+    filename:
+      template: '{primary}.md'
+      field: create
     subfolders: true
     view:
       layout: tree
@@ -250,3 +259,13 @@ content:
             type: string
           - name: url
             type: string
+
+settings:
+  content:
+    merge: true
+  commit:
+    templates:
+      create: 'content(create): {path}'
+      update: 'content(update): {path}'
+      delete: 'content(delete): {path}'
+      rename: 'content(rename): {oldPath} -> {newPath}'

@@ -61,12 +61,20 @@ npm run preview
 
 ## Pages CMS Editing
 
-1. Push repository to GitHub.
-2. Open your repo in Pages CMS (app.pagescms.org).
-3. Pages CMS will read `.pages.yml` and expose:
+Pages CMS is now configured in this repository via `.pages.yml`.
+
+To finish connecting your account to this repo:
+
+1. Go to [app.pagescms.org](https://app.pagescms.org).
+2. Sign in with GitHub.
+3. Install/authorize the Pages CMS GitHub App for `guyronhuji/OSSite` (first time only).
+4. Open the `OSSite` repository in Pages CMS.
+
+Pages CMS will read `.pages.yml` and expose:
    - `Pages (English/Hebrew/German/Arabic)` as tree collections
    - `Profile Data`
    - `Publications Data`
+   - media uploads stored in `public/uploads` and linked as `/uploads/...`
 
 ### Add a New Subpage
 
