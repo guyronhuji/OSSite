@@ -1,12 +1,12 @@
 ---
 title: Biografie
 navTitle: Biografie
-description: Vollstandige akademische Biografie auf Basis des CV (aktualisiert am 25. November 2025).
+description: Vollstandige akademische Biografie auf Basis des CV (aktualisiert
+  am 25. November 2025).
 excerpt: Ausbildung, Positionen, Drittmittel, akademischer Dienst und Lehre.
 showInNav: true
 order: 2
 ---
-
 Diese Seite bietet eine vollstandige akademische Biografie auf Grundlage des aktuellsten CV (25. November 2025).
 
 ## Personliches und akademisches Profil
@@ -37,7 +37,6 @@ Dr. Oded Y. Steinberg ist Historiker der Moderne und Senior Lecturer an der Hebr
 - **2022-heute:** MA Advisor, German Studies (European Forum).
 - **2020-heute:** Scholarship Committee, European Forum.
 - **2022-2024:** Library Committee.
-- **2023-2024:** Reserves' duty liaison, Department of International Relations.
 
 ## Service in weiteren akademischen Institutionen
 
@@ -85,3 +84,5 @@ Die vollstandige Publikationsliste und der formale CV stehen uber die Download-L
 
 - CV PDF
 - Vollstandige Publikationsliste (PDF)
+
+&nbsp;
