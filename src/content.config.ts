@@ -36,16 +36,16 @@ const profile = defineCollection({
 const publications = defineCollection({
   loader: glob({ base: './src/content/publications', pattern: '*.yaml' }),
   schema: z.object({
-    updated: z.string(),
+    updated: z.union([z.string(), z.date()]).transform((value) => (typeof value === 'string' ? value : value.toISOString().slice(0, 10))),
     items: z.array(
       z.object({
-        id: z.string(),
-        year: z.number(),
-        status: z.enum(['published', 'forthcoming']).default('published'),
-        type: z.enum(['book', 'edited_volume', 'chapter', 'article', 'other']),
-        title: z.string(),
-        authors: z.string(),
-        venue: z.string(),
+        id: z.string().optional(),
+        year: z.number().optional(),
+        status: z.enum(['published', 'forthcoming']).default('published').optional(),
+        type: z.enum(['book', 'edited_volume', 'chapter', 'article', 'other']).optional(),
+        title: z.string().optional(),
+        authors: z.string().optional(),
+        venue: z.string().optional(),
         details: z.string().optional(),
         doi: z.string().optional(),
         url: z.string().optional(),

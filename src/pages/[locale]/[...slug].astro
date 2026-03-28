@@ -116,7 +116,36 @@ if (!profileEntry) {
 }
 
 const publicationsEntry = await getEntry('publications', 'list');
-const publications = (publicationsEntry?.data.items ?? []).slice().sort((a, b) => b.year - a.year);
+const publications = (publicationsEntry?.data.items ?? [])
+  .filter(
+    (
+      item,
+    ): item is {
+      id: string;
+      year: number;
+      status: 'published' | 'forthcoming';
+      type: 'book' | 'edited_volume' | 'chapter' | 'article' | 'other';
+      title: string;
+      authors: string;
+      venue: string;
+      details?: string;
+      doi?: string;
+      url?: string;
+    } =>
+      typeof item.id === 'string' &&
+      typeof item.year === 'number' &&
+      (item.status === 'published' || item.status === 'forthcoming' || item.status === undefined) &&
+      (item.type === 'book' || item.type === 'edited_volume' || item.type === 'chapter' || item.type === 'article' || item.type === 'other') &&
+      typeof item.title === 'string' &&
+      typeof item.authors === 'string' &&
+      typeof item.venue === 'string',
+  )
+  .map((item) => ({
+    ...item,
+    status: item.status ?? 'published',
+  }))
+  .slice()
+  .sort((a, b) => b.year - a.year);
 
 const profile = profileEntry.data;
 const profileImageSrc = withBase('/images/oded-portrait.jpg');
