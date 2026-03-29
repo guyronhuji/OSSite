@@ -4,7 +4,7 @@ navTitle: Contact
 description: Institutional contact details and academic profile resources.
 excerpt: Email, office location, ORCID, CV, and publication documents.
 showInNav: true
-order: 5
+order: 6
 ---
 
 For research collaboration, speaking invitations, and graduate supervision inquiries, please reach out via email.

@@ -4,7 +4,7 @@ navTitle: Kontakt
 description: Kontaktinformationen und akademische Unterlagen.
 excerpt: E-Mail, Buero, ORCID, CV und Publikationsliste.
 showInNav: true
-order: 5
+order: 6
 ---
 
 Fuer Forschungskooperationen, Vortragsanfragen und Fragen zur Betreuung von Studierenden kontaktieren Sie mich bitte per E-Mail.
