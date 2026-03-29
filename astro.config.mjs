@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 
-const siteUrl = process.env.SITE_URL || 'https://oded.steinberg.com';
+const siteUrl = process.env.SITE_URL || 'https://www.odedsteinberg.org';
 
 export default defineConfig({
   site: siteUrl,
