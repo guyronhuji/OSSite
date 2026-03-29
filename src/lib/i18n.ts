@@ -75,8 +75,10 @@ export const uiText: Record<
     filterAll: string;
     filterBooks: string;
     filterArticles: string;
+    filterBookReviews: string;
     filterChapters: string;
     filterForthcoming: string;
+    typeBookReview: string;
     academicProfiles: string;
     careerTimeline: string;
     themeLabel: string;
@@ -104,8 +106,10 @@ export const uiText: Record<
     filterAll: 'All',
     filterBooks: 'Books',
     filterArticles: 'Articles',
+    filterBookReviews: 'Book Reviews',
     filterChapters: 'Chapters',
     filterForthcoming: 'Forthcoming',
+    typeBookReview: 'Book Review',
     academicProfiles: 'Academic Profiles',
     careerTimeline: 'Career Timeline',
     themeLabel: 'Theme',
@@ -132,8 +136,10 @@ export const uiText: Record<
     filterAll: 'הכל',
     filterBooks: 'ספרים',
     filterArticles: 'מאמרים',
+    filterBookReviews: 'ביקורות ספרים',
     filterChapters: 'פרקים',
     filterForthcoming: 'בקרוב',
+    typeBookReview: 'ביקורת ספר',
     academicProfiles: 'פרופילים אקדמיים',
     careerTimeline: 'ציר זמן אקדמי',
     themeLabel: 'ערכת נושא',
@@ -160,8 +166,10 @@ export const uiText: Record<
     filterAll: 'Alle',
     filterBooks: 'Bucher',
     filterArticles: 'Artikel',
+    filterBookReviews: 'Rezensionen',
     filterChapters: 'Kapitel',
     filterForthcoming: 'Erscheint',
+    typeBookReview: 'Rezension',
     academicProfiles: 'Akademische Profile',
     careerTimeline: 'Akademischer Zeitverlauf',
     themeLabel: 'Design',
@@ -188,8 +196,10 @@ export const uiText: Record<
     filterAll: 'الكل',
     filterBooks: 'كتب',
     filterArticles: 'مقالات',
+    filterBookReviews: 'مراجعات كتب',
     filterChapters: 'فصول',
     filterForthcoming: 'قيد الصدور',
+    typeBookReview: 'مراجعة كتاب',
     academicProfiles: 'ملفات أكاديمية',
     careerTimeline: 'الخط الزمني الأكاديمي',
     themeLabel: 'المظهر',

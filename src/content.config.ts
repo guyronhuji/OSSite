@@ -42,7 +42,7 @@ const publications = defineCollection({
         id: z.string().optional(),
         year: z.number().optional(),
         status: z.enum(['published', 'forthcoming']).default('published').optional(),
-        type: z.enum(['book', 'edited_volume', 'chapter', 'article', 'other']).optional(),
+        type: z.enum(['book', 'edited_volume', 'chapter', 'article', 'book_review', 'other']).optional(),
         title: z.string().optional(),
         authors: z.string().optional(),
         venue: z.string().optional(),

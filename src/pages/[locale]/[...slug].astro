@@ -124,7 +124,7 @@ const publications = (publicationsEntry?.data.items ?? [])
       id: string;
       year: number;
       status: 'published' | 'forthcoming';
-      type: 'book' | 'edited_volume' | 'chapter' | 'article' | 'other';
+      type: 'book' | 'edited_volume' | 'chapter' | 'article' | 'book_review' | 'other';
       title: string;
       authors: string;
       venue: string;
@@ -135,7 +135,12 @@ const publications = (publicationsEntry?.data.items ?? [])
       typeof item.id === 'string' &&
       typeof item.year === 'number' &&
       (item.status === 'published' || item.status === 'forthcoming' || item.status === undefined) &&
-      (item.type === 'book' || item.type === 'edited_volume' || item.type === 'chapter' || item.type === 'article' || item.type === 'other') &&
+      (item.type === 'book' ||
+        item.type === 'edited_volume' ||
+        item.type === 'chapter' ||
+        item.type === 'article' ||
+        item.type === 'book_review' ||
+        item.type === 'other') &&
       typeof item.title === 'string' &&
       typeof item.authors === 'string' &&
       typeof item.venue === 'string',
@@ -176,6 +181,7 @@ const researchThemes = childPages.map((child, index) => ({
 const publicationGroup = (item: (typeof publications)[number]) => {
   if (item.status === 'forthcoming') return 'forthcoming';
   if (item.type === 'book' || item.type === 'edited_volume') return 'books';
+  if (item.type === 'book_review') return 'book-reviews';
   if (item.type === 'chapter') return 'chapters';
   return 'articles';
 };
@@ -184,6 +190,7 @@ const publicationTypeLabel = (item: (typeof publications)[number]) => {
   if (item.status === 'forthcoming') return ui.filterForthcoming;
   if (item.type === 'book' || item.type === 'edited_volume') return ui.filterBooks;
   if (item.type === 'chapter') return ui.filterChapters;
+  if (item.type === 'book_review') return ui.typeBookReview;
   return ui.filterArticles;
 };
 
@@ -336,6 +343,7 @@ const academicProfiles = [
                         <button type="button" class="pub-filter-btn active" data-filter="all">{ui.filterAll}</button>
                         <button type="button" class="pub-filter-btn" data-filter="books">{ui.filterBooks}</button>
                         <button type="button" class="pub-filter-btn" data-filter="articles">{ui.filterArticles}</button>
+                        <button type="button" class="pub-filter-btn" data-filter="book-reviews">{ui.filterBookReviews}</button>
                         <button type="button" class="pub-filter-btn" data-filter="chapters">{ui.filterChapters}</button>
                         <button type="button" class="pub-filter-btn" data-filter="forthcoming">{ui.filterForthcoming}</button>
                       </div>

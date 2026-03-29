@@ -70,7 +70,7 @@ items:
   - id: charles-kingsley-review
     year: 2023
     status: published
-    type: other
+    type: book_review
     title: "Charles Kingsley: Faith, Flesh, and Fantasy"
     authors: Oded Y. Steinberg
     venue: Victorian Studies, 65(2)

@@ -688,6 +688,12 @@ html:lang(ar) body {
   color: #1d7a55;
 }
 
+.pub-badge.book-reviews {
+  background: #fff5e8;
+  border-color: #ffd9ad;
+  color: #9a5620;
+}
+
 .pub-badge.chapters {
   background: #f2efff;
   border-color: #ddd3ff;
