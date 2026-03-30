@@ -5,7 +5,7 @@ description: Modern intellectual history, nationalism, and humanitarian advocacy
 excerpt: Academic profile and current research.
 showInNav: true
 order: 1
-heroImage: /uploads/mnd350p7-uhcu7ipq.jpg
+heroImage: /uploads/mnd4j04b-4pdotlwm.jpg
 ---
 I am an assistant professor in the departments of International Relations and European Studies (European Forum) at the Hebrew University of Jerusalem. My research as a modern historian focuses on the circulation of ideas, particularly racial and nationalistic ones, between Britain and Central Europe from the mid-nineteenth century onward, as well as on the development of humanitarian advocacy. Within this framework, my publications have explored various aspects of British and central European intellectual, cultural and diplomatic history.
 
