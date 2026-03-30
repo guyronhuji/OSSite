@@ -153,7 +153,11 @@ const publications = (publicationsEntry?.data.items ?? [])
   .sort((a, b) => b.year - a.year);
 
 const profile = profileEntry.data;
-const profileImageSrc = withBase('/images/oded-portrait.jpg');
+const homePage = localePages.find((page) => {
+  const parsed = parsePageId(page.id);
+  return Boolean(parsed) && parsed.slugParts.length === 0;
+});
+const profileImageSrc = withBase(homePage?.data.heroImage ?? '/images/oded-portrait.jpg');
 const bookCoverSrc = withBase('/images/race-nation-history-cover.png');
 
 const normalizeOptionalUrl = (url?: string): string | undefined => (url ? withBase(url) : undefined);
