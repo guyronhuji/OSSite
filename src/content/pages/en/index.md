@@ -9,6 +9,19 @@ heroImage: /uploads/mnd4j04b-4pdotlwm.jpg
 ---
 I am an assistant professor in the departments of International Relations and European Studies (European Forum) at the Hebrew University of Jerusalem. My research as a modern historian focuses on the circulation of ideas, particularly racial and nationalistic ones, between Britain and Central Europe from the mid-nineteenth century onward, as well as on the development of humanitarian advocacy. Within this framework, my publications have explored various aspects of British and central European intellectual, cultural and diplomatic history.
 
+
+<div>
+  <img
+    src="/uploads/race-nation-history-cover.png"
+    alt="Race, Nation, History book cover"
+    style="float:left; width:180px; margin:0 1rem 0.75rem 0;"
+  />
+
+  My book *Race, Nation, History: Anglo-German Thought in the Victorian Era* (Penn: University of Pennsylvania Press, 2019) examines the way a series of nineteenth-century scholars in England and Germany first constructed and then questioned the periodization of history into ancient, medieval, and modern eras, shaping the way we continue to think about the past and present of Western civilization at a fundamental level. The book explores this topic by tracing the deep connections between the idea of epochal periodization and concepts of race and nation that were prevalent at the time, especially the role that Germanic or Teutonic tribes were assumed to play in the unfolding of Western history.
+</div>
+
+<div style="clear:both;"></div>
+
 My book *Race, Nation, History: Anglo-German Thought in the Victorian Era* (Penn: University of Pennsylvania Press, 2019) examines the way a series of nineteenth-century scholars in England and Germany first constructed and then questioned the periodization of history into ancient, medieval, and modern eras, shaping the way we continue to think about the past and present of Western civilization at a fundamental level. The book explores this topic by tracing the deep connections between the idea of epochal periodization and concepts of race and nation that were prevalent at the time, especially the role that Germanic or Teutonic tribes were assumed to play in the unfolding of Western history.
 
 ![](/uploads/race-nation-history-cover.png)
