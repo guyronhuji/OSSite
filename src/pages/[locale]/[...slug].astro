@@ -158,7 +158,6 @@ const homePage = localePages.find((page) => {
   return Boolean(parsed) && parsed.slugParts.length === 0;
 });
 const profileImageSrc = withBase(homePage?.data.heroImage ?? '/images/oded-portrait.jpg');
-const bookCoverSrc = withBase('/images/race-nation-history-cover.png');
 
 const normalizeOptionalUrl = (url?: string): string | undefined => (url ? withBase(url) : undefined);
 const cvUrl = normalizeOptionalUrl(profile.cvUrl);
@@ -254,7 +253,6 @@ const academicProfiles = [
           </div>
           <div class="hero-media">
             <img class="hero-portrait" src={profileImageSrc} alt={ui.profileImageAlt} width="180" height="140" loading="eager" />
-            <img class="hero-book" src={bookCoverSrc} alt={ui.bookCoverAlt} width="243" height="361" loading="lazy" />
           </div>
         </section>
 
