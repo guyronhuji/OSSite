@@ -15,6 +15,6 @@ My book *Race, Nation, History: Anglo-German Thought in the Victorian Era* (Penn
 
 
 
-![image.png](/uploads/image.png=200)
+![image.png](/uploads/image.png)
 
 Building on my first book, which examined shared racial and religious ideas among a group of nineteenth-century Anglo-German scholars, I expanded my research to consider how some of these figures perceived the East, particularly the minorities living under the Ottoman Empire. This line of inquiry led to my current project, which offers a new perspective on the history of humanitarianism by investigating how racial and religious ideas shape forms of humanitarian advocacy. Supported by an ISF grant, the project explores the activities and ideological foundations of little-known Western networks that advocated on behalf of Christian Armenians during the final decades of the nineteenth century.
